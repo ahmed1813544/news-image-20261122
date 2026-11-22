@@ -26,6 +26,8 @@ def main() -> int:
     here = os.path.dirname(os.path.abspath(__file__))
     with open(os.path.join(here, "entry.png"), "rb") as fh:
         payload = fh.read()
+    if not payload:
+        raise SystemExit("entry.png is empty; refusing to write a blank entry")
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(out_dir, "entry.png"), "wb") as fh:
